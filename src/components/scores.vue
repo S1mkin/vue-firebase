@@ -31,6 +31,7 @@
 <script>
 
 import { db } from '../db'
+import firebase from 'firebase/app'
 
 export default {
   name: 'Scores',
@@ -55,6 +56,20 @@ export default {
       this.score.city = '';
       this.score.score = '';
       db.collection('scores').add({ user, city, score })
+    },
+    signUp: function() {
+      // https://blog.logrocket.com/vue-firebase-authentication/
+      // https://firebase.google.com/docs/reference/js/firebase.auth.FacebookAuthProvider?authuser=1
+      
+        firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(
+          (user) => {
+            //this.$router.replace('home')
+            console.log(user)
+          },
+          (err) => {
+            alert('Oops. ' + err.message)
+          }
+        );
     }
   }
 }
