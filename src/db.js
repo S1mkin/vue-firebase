@@ -1,7 +1,10 @@
+/* Initial firebase */
+import { firestorePlugin } from 'vuefire'
 import firebase from 'firebase/app'
+import 'firebase/app'
+import 'firebase/auth'
 import 'firebase/firestore'
 
-// достаточно apiKey и projectId
 const firebaseConfig = {
   apiKey: "AIzaSyC0XQdvzETOmnRLCi5uNMEVzoo5MPg_RR8",
   authDomain: "realcubes-46aaa.firebaseapp.com",
@@ -13,15 +16,7 @@ const firebaseConfig = {
 };
 
 
-// Get a Firestore instance
-export const db = firebase
-  .initializeApp(firebaseConfig)
-  .firestore()
+firebase.initializeApp(firebaseConfig)
 
-// Export types that exists in Firestore
-// This is not always necessary, but it's used in other examples
-const { TimeStamp, GeoPoint } = firebase.firestore
-export { TimeStamp, GeoPoint }
-
-
-db.settings({ })
+Vue.use(firestorePlugin)
+/* End Initial firebase */

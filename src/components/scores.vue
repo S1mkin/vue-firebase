@@ -25,12 +25,12 @@
       <button type="submit" :disabled="score.score == 0">Add New Score</button>
     </form>
 
+
   </div>
 </template>
 
 <script>
 
-import { db } from '../db'
 import firebase from 'firebase/app'
 
 export default {
@@ -47,7 +47,7 @@ export default {
   },
   firestore () {
     return {
-      scores: db.collection('scores').orderBy('score', 'desc')
+      scores: firebase.firestore().collection('scores').orderBy('score', 'desc')
     }
   },
   methods: {
@@ -55,21 +55,7 @@ export default {
       this.score.user = '';
       this.score.city = '';
       this.score.score = '';
-      db.collection('scores').add({ user, city, score })
-    },
-    signUp: function() {
-      // https://blog.logrocket.com/vue-firebase-authentication/
-      // https://firebase.google.com/docs/reference/js/firebase.auth.FacebookAuthProvider?authuser=1
-      
-        firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(
-          (user) => {
-            //this.$router.replace('home')
-            console.log(user)
-          },
-          (err) => {
-            alert('Oops. ' + err.message)
-          }
-        );
+      firebase.firestore().collection('scores').add({ user, city, score })
     }
   }
 }
